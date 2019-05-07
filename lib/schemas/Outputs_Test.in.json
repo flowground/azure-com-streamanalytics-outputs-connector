@@ -1,0 +1,123 @@
+{
+    "type": "object",
+    "properties": {
+        "subscriptionId": {
+            "required": true,
+            "type": "string"
+        },
+        "resourceGroupName": {
+            "required": true,
+            "type": "string"
+        },
+        "jobName": {
+            "required": true,
+            "type": "string"
+        },
+        "outputName": {
+            "required": true,
+            "type": "string"
+        },
+        "requestBody": {
+            "allOf": [
+                {
+                    "description": "The base sub-resource model definition.",
+                    "properties": {
+                        "id": {
+                            "description": "Resource Id",
+                            "readOnly": true,
+                            "type": "string"
+                        },
+                        "name": {
+                            "description": "Resource name",
+                            "type": "string"
+                        },
+                        "type": {
+                            "description": "Resource type",
+                            "readOnly": true,
+                            "type": "string"
+                        }
+                    },
+                    "x-ms-azure-resource": true,
+                    "type": "object"
+                }
+            ],
+            "description": "An output object, containing all information associated with the named output. All outputs are contained under a streaming job.",
+            "properties": {
+                "properties": {
+                    "description": "The properties that are associated with an output. Required on PUT (CreateOrReplace) requests.",
+                    "x-ms-client-flatten": true,
+                    "properties": {
+                        "datasource": {
+                            "description": "Describes the data source that output will be written to. Required on PUT (CreateOrReplace) requests.",
+                            "discriminator": {
+                                "propertyName": "type"
+                            },
+                            "properties": {
+                                "type": {
+                                    "description": "Indicates the type of data source output will be written to. Required on PUT (CreateOrReplace) requests.",
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        },
+                        "diagnostics": {
+                            "description": "Describes conditions applicable to the Input, Output, or the job overall, that warrant customer attention.",
+                            "properties": {
+                                "conditions": {
+                                    "description": "A collection of zero or more conditions applicable to the resource, or to the job overall, that warrant customer attention.",
+                                    "items": {
+                                        "description": "Condition applicable to the resource, or to the job overall, that warrant customer attention.",
+                                        "properties": {
+                                            "code": {
+                                                "description": "The opaque diagnostic code.",
+                                                "readOnly": true,
+                                                "type": "string"
+                                            },
+                                            "message": {
+                                                "description": "The human-readable message describing the condition in detail. Localized in the Accept-Language of the client request.",
+                                                "readOnly": true,
+                                                "type": "string"
+                                            },
+                                            "since": {
+                                                "description": "The UTC timestamp of when the condition started. Customers should be able to find a corresponding event in the ops log around this time.",
+                                                "readOnly": true,
+                                                "type": "string"
+                                            }
+                                        },
+                                        "type": "object"
+                                    },
+                                    "readOnly": true,
+                                    "type": "array"
+                                }
+                            },
+                            "type": "object"
+                        },
+                        "etag": {
+                            "description": "The current entity tag for the output. This is an opaque string. You can use it to detect whether the resource has changed between requests. You can also use it in the If-Match or If-None-Match headers for write operations for optimistic concurrency.",
+                            "readOnly": true,
+                            "type": "string"
+                        },
+                        "serialization": {
+                            "description": "Describes how data from an input is serialized or how data is serialized when written to an output.",
+                            "discriminator": {
+                                "propertyName": "type"
+                            },
+                            "properties": {
+                                "type": {
+                                    "description": "Indicates the type of serialization that the input or output uses. Required on PUT (CreateOrReplace) requests.",
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            },
+            "type": "object"
+        },
+        "api_version": {
+            "required": true,
+            "type": "string"
+        }
+    }
+}
